@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en" style="height:93%;">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mall Mart KIOSK</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family:"Segoe UI", Arial, sans-serif;
+      user-select: none;
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+    }
+
+    /* Sidebar */
+    
+    .side-menu {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 220px;
+      height: 100vh;
+      background: #fff;
+      border-right: 1px solid #e0e0e0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .menu-title {
+      background: #1a4fd8;
+      color: #fff;
+      text-align: center;
+      padding: 18px;
+      font-weight: 600;
+      letter-spacing:4px;
+    }
+
+    .side-menu a {
+      display: block;
+      padding: 18px 20px;
+      text-decoration: none;
+      color: #333;
+      border-bottom: 1px solid #f0f0f0;
+      transition: 0.2s;
+    }
+
+    .side-menu a.active {
+      background: #eef3ff;
+      color: #1a4fd8;
+      font-weight: 600;
+    }
+
+    /* Main App Layout */
+    #app {
+      margin-left: 220px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #f8fafc;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 25px;
+      background: #1e293b;
+      color: white;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-box {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(to bottom right, #fbbf24, #d97706);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .header small {
+      color: #cbd5e1;
+      font-size: 12px;
+    }
+
+    .header-divider {
+      width: 1px;
+      height: 40px;
+      background: #475569;
+    }
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      padding: 24px;
+      display: flex;
+    }
+
+    .map-container {
+      flex: 1;
+      background: white;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      position: relative;
+      overflow: hidden;
+      color: #101998;
+    } 
+
+    #mall-map {
+      position: absolute;
+      margin-left: 7vw;
+      top: 5%;
+      width: 90%;
+      height: 90%;
+      display: block;
+      max-width: 200vw;
+      max-height: 100vh;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Sidebar -->
+  <div class="side-menu">
+    <div class="menu-title">MENU BAR</div>
+    <a href="index.html">Home</a>
+    <a onclick="filterFloor('ground', this)" class="active">Ground Floor</a>
+    <a onclick="filterFloor('1st', this)">1st Floor</a>
+    <a onclick="filterFloor('2nd', this)">2nd Floor</a>
+    <a href="brand.html">Back  </a>
+  </div>
+
+  <div id="app">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-left">
+        <h2>
+          <div class="logo-box">&lt/&gt;</div>
+        </h2>
+        <h1>Mall Mart's MAP</h1>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:20px;">
+        <div style="text-align:right;">
+          <small>Current Time</small><br>
+          <strong id="current-time">10:30 AM</strong>
+        </div>
+        <div class="header-divider"></div>
+        <div style="text-align:right;">
+          <small>Mall Hours</small><br>
+          <strong>10AM - 9PM</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div class="main">
+      <div class="map-container">
+        <svg id="mall-map" viewBox="0 0 900 500">
+          <!-- Entry  -->
+          <g>
+            <rect x="30" y="210" width="45" height="80" fill="#3b82f6" rx="8" id="svgEntry"/>
+            <text x="60" y="281" font-size="25" font-weight="bold" font-family="monospace" writing-mode="sideways-lr" fill="white" id="svgEntry">Entry</text>
+          </g>
+          <!-- SHOP 1 -->
+          <g id="shop1">
+            <rect id="shop-1-rect" x="50" y="50" width="140" height="150" fill="#10b981" rx="8"/>
+            <text id="shop-1-text" x="120" y="125" text-anchor="middle" fill="white" font-size="12" font-weight="600"></text>
+            <text id="shop-1-id" x="120" y="140" text-anchor="middle" fill="white" font-size="12"></text>
+          </g>
+
+          <!-- SHOP 2 -->
+          <g id="shop2">
+            <rect id="shop-2-rect" x="50" y="300" width="140" height="150" fill="#3b82f6" rx="8" />
+            <text id="shop-2-text" x="120" y="375" text-anchor="middle" fill="white" font-size="12" font-weight="600"></text>
+            <text id="shop-2-id" x="120" y="395" text-anchor="middle" fill="white" font-size="12"></text>
+          </g>
+
+          <!-- Wsrm top -->
+          <g>
+            <rect x="342" y="0" width="120" height="45" fill="#3b82f6" rx="8"/>
+            <text x="348" y="30" font-size="20" font-weight="bold" font-family="monospace" fill="white">Wash room</text>
+          </g>
+
+          <!-- SHOP 3 -->
+          <g id="shop3">
+            <rect id="shop-3-rect" x="195" y="50" width="140" height="150" fill="#8b5cf6" rx="8" />
+            <text id="shop-3-text" x="265" y="125" text-anchor="middle" fill="white" font-size="12" font-weight="600"></text>
+            <text id="shop-3-id" x="265" y="140" text-anchor="middle" fill="white" font-size="12"></text>
+          </g>
+
+          <!-- SHOP 4 -->
+          <g id="shop4">
+            <rect id="shop-4-rect" x="195" y="300" width="140" height="150" fill="#f59e0b" rx="8" />
+            <text id="shop-4-text" x="265" y="375" text-anchor="middle" fill="white" font-size="12" font-weight="600"></text>
+            <text id="shop-4-id" x="265" y="390" text-anchor="middle" fill="white" font-size="12"></text>
+          </g>
+
+          <!-- SHOP 5 -->
+          <g id="shop5">
+            <rect id="shop-5-rect" x="465" y="50" width="140" height="150" fill="#10b981" rx="8" />
+            <text id="shop-5-text" x="535" y="125" text-anchor="middle" fill="white" font-size="12" font-weight="600"></text>
+            <text id="shop-5-id" x="535" y="140" text-anchor="middle" fill="white" font-size="12"></text>
+          </g>
+
+          <!-- SHOP 6 -->
+          <g id="shop-6">
+            <rect id="shop-6-rect" x="465" y="300" width="140" height="150" fill="#3b82f6" rx="8" />
+            <text id="shop-6-text" x="535" y="375" text-anchor="middle" fill="white" font-size="12" font-weight="600"></text>
+            <text id="shop-6-id" x="535" y="390" text-anchor="middle" fill="white" font-size="12"></text>
+          </g>
+            
+          <!-- Wsrm bottom -->
+           <g>
+            <rect x="342" y="455" width="120" height="45" fill="#3b82f6" rx="8"/>
+            <text x="348" y="484" font-size="20" font-weight="bold" font-family="monospace" fill="white">Wash room</text>
+          </g>
+
+          <!-- SHOP 7 -->
+          <g id="shop-7">
+            <rect id="shop-7-rect" x="615" y="50" width="140" height="150" fill="#10b981" rx="8" />
+            <text id="shop-7-text" x="685" y="125" text-anchor="middle" fill="white" font-size="12" font-weight="600"></text>
+            <text id="shop-7-id" x="685" y="140" text-anchor="middle" fill="white" font-size="12"></text>
+          </g>
+
+          <!-- SHOP 8 -->
+          <g id="shop-8">
+            <rect id="shop-8-rect" x="615" y="300" width="140" height="150" fill="#f59e0b" rx="8" />
+            <text id="shop-8-text" x="685" y="375" text-anchor="middle" fill="white" font-size="12" font-weight="600"></text>
+            <text id="shop-8-id" x="685" y="390" text-anchor="middle" fill="white" font-size="12"></text>
+          </g>
+
+            <!-- Stairs -->
+            <g transform="translate(720,230) scale(0.3)"> 
+                  <path d="
+              M40 40 L280 -10
+              M40 80 L280 140
+              M40 40 L40 80
+
+              M80 35 L80 90
+              M120 24 L120 100
+              M160 15 L160 110
+              M200 10 L200 120
+              M240 1 L240 130
+              M280 -10 L280 140" stroke="black" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <text x="301" y="-2" font-size="40" font-weight="bold" font-family="monospace" text-anchor="start" writing-mode="tb" dominant-baseline="central">STAIRS</text>
+          </g>
+
+          <!-- Corridors  and lift -->
+          <rect x="350" y="50" width="100" height="400" fill="#e2e8f0" rx="4" />
+          <rect x="80" y="220" width="650" height="60" fill="#e2e8f0" rx="4" />
+          <rect x="370" y="210" width="60" height="80" fill="#64748b" rx="8"/>
+          <rect x="390" y="225" width="20" height="50" fill="#e2e8f0" rx="3"/>
+          <text x="400" y="230" font-size="18" font-weight="bold" font-family="monospace" writing-mode="tb" fill="black">LIFT</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <script>
+/* ================= TIME ================= */
+
+function updateTime() {
+  const now = new Date();
+  document.getElementById("current-time").textContent =
+    now.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    });
+}
+updateTime();
+setInterval(updateTime, 60000);
+
+
+/* ================= GLOBAL ================= */
+
+let mallData = [];
+let currentFloor = "ground";
+let selectedShopId = null;
+
+
+/* ================= LOAD JSON (Browser + Electron) ================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const params = new URLSearchParams(window.location.search);
+  const floorParam = params.get("floor");
+  const shopParam = params.get("shop");
+
+  if (floorParam) currentFloor = floorParam;
+  if (shopParam) selectedShopId = parseInt(shopParam);
+
+  if (window.api && window.api.getBrands) {
+    // ELECTRON
+    const data = window.api.getBrands();
+    mallData = data.brands;
+    initializeMap();
+  } else {
+    // BROWSER
+    fetch("brandshop.json")
+      .then(res => res.json())
+      .then(data => {
+        mallData = data.brands;
+        initializeMap();
+      })
+      .catch(err => console.log(err));
+  }
+
+});
+
+function activateFloorTab(floor) {
+
+  const links = document.querySelectorAll(".side-menu a");
+
+  links.forEach(link => {
+
+    link.classList.remove("active");
+
+    if (link.innerText.toLowerCase().includes(floor)) {
+      link.classList.add("active");
+    }
+
+  });
+}
+/* ================= INITIALIZE MAP ================= */
+
+function initializeMap() {
+
+  activateFloorTab(currentFloor);
+  renderFloor(currentFloor);
+  highlightFromParams();
+
+}
+
+
+/* ================= RENDER FLOOR DATA INTO SVG ================= */
+
+function renderFloor(floor) {
+
+  currentFloor = floor;
+
+  // Clear previous highlight
+  clearHighlight();
+
+  const floorShops = mallData.filter(s => s.floor === floor);
+
+  // Fill first 8 SVG shops
+  for (let i = 0; i < 8; i++) {
+
+    const textEl = document.getElementById(`shop-${i+1}-text`);
+    const textElid = document.getElementById(`shop-${i+1}-id`);
+    const rectEl = document.getElementById(`shop-${i+1}-rect`);
+
+    if (!textEl || !rectEl) continue;
+
+    if (floorShops[i]) {
+      textEl.textContent = floorShops[i].name;
+      textElid.textContent = floorShops[i].id;
+      // textEl.textContent += "   "+floorShops[i].id;
+      rectEl.setAttribute("data-id", floorShops[i].id);
+    } else {
+      textEl.textContent = "";
+      rectEl.removeAttribute("data-id");
+    }
+  }
+
+  // Entry visibility (your original logic)
+  if (floor === "ground") {
+    document.getElementById("svgEntry").style.visibility = "";
+  } else {
+    document.getElementById("svgEntry").style.visibility = "hidden";
+  }
+}
+
+
+/* ================= HIGHLIGHT LOGIC ================= */
+
+function highlightFromParams() {
+
+  if (!selectedShopId) return;
+
+  const rects = document.querySelectorAll("[data-id]");
+
+  rects.forEach(rect => {
+    if (parseInt(rect.getAttribute("data-id")) === selectedShopId) {
+      rect.setAttribute("stroke", "red");
+      rect.setAttribute("stroke-width", "5");
+    }
+  });
+}
+
+function clearHighlight() {
+  document.querySelectorAll("[data-id]").forEach(rect => {
+    rect.removeAttribute("stroke");
+    rect.removeAttribute("stroke-width");
+  });
+}
+
+
+/* ================= FLOOR TAB CLICK ================= */
+
+function filterFloor(floor, el) {
+
+  document.querySelectorAll(".side-menu a")
+    .forEach(a => a.classList.remove("active"));
+
+  el.classList.add("active");
+
+  selectedShopId = null; // remove highlight
+  renderFloor(floor);
+}
+
+</script>
+</body>
+</html>

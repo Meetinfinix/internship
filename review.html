@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mall Mart KIOSK</title>
+  <style>
+    *,*::before,*::after
+{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  user-select: none;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(179deg, #4c4c4c, #00329e);
+  /* background: linear-gradient(180deg, #d05f5f, #c4c4c4); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rating-card {
+  width: 520px;
+  padding: 40px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  text-align: center;
+  color: #ffffff;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.rating-card h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 16px;
+  opacity: 0.8;
+  margin-bottom: 30px;
+}
+
+.emoji-box button {
+  font-size: 60px;
+  margin: 10px;
+  padding: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.emoji-box button:hover {
+  transform: scale(1.3);
+}
+
+.average {
+  margin-top: 30px;
+  font-size: 22px;
+  opacity: 0.9;
+}
+
+.average span {
+  display: block;
+  font-size: 48px;
+  font-weight: bold;
+  color: #facc15;
+}
+
+.thanks {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #a7f3d0;
+}
+
+.circle-button {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-top: 5%;
+  background-color: #df1f1f;
+  color: white;
+  align-items: center;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+}
+  </style>
+</head>
+<body>
+
+  <div class="rating-card">
+    <h1>How was your visit today?</h1>
+    <p class="subtitle">Your feedback helps us improve</p>
+
+    <div class="emoji-box">
+      <button onclick="rate(5)">😍</button>
+      <button onclick="rate(4)">😊</button>
+      <button onclick="rate(3)">😐</button>
+      <button onclick="rate(2)">😕</button>
+      <button onclick="rate(1)">😠</button>
+    </div>
+
+    <div id="avg" class="average">
+      Average Rating<br><span>3.0</span>
+    </div>
+
+    <p id="thanks" class="thanks"></p>
+    <a href="index.html"><button class="circle-button">Home</button></a>
+  </div>
+</body>
+</html>
+<script>
+  let totalScore = 3.0;
+let totalUsers = 1;
+let resetTimer;
+
+function rate(value) {
+  clearTimeout(resetTimer);
+
+  totalScore += value;
+  totalUsers++;
+
+  let average = (totalScore / totalUsers).toFixed(1);
+
+  document.getElementById("avg").innerHTML = "Average Rating<br><span>" + average + "</span>";
+
+  document.getElementById("thanks").innerText = "Thank you for your feedback, press Home to submit";
+
+  resetTimer = setTimeout(resetPage, 10000);
+}
+
+function resetPage() {
+  totalScore = 3.0;
+  totalUsers = 1;
+
+  document.getElementById("avg").innerHTML = "Average Rating<br><span>3.0</span>";
+
+  document.getElementById("thanks").innerText = "";
+}
+</script>

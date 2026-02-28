@@ -1,0 +1,31 @@
+{
+  "brands": [
+    { "id": 101, "name": "LOUIS VUITTON", "category": "fashion", "floor": "ground", "image":"brand/LV.png" },
+    { "id": 102, "name": "APPLE", "category": "tech", "floor": "ground", "image":"brand/Apple.png"},
+    { "id": 103, "name": "NIKE", "category": "fashion", "floor": "ground", "image":"brand/Nike.png" },
+    { "id": 104, "name": "BURBERRY", "category": "fashion", "floor": "ground", "image":"brand/Burberry.png" },
+    { "id": 105, "name": "DOMINO'S PIZZA", "category": "food", "floor": "ground", "image":"brand/dominos.jpg" },
+    { "id": 106, "name": "ADIDAS", "category": "fashion", "floor": "ground", "image":"brand/Adidas.png" },
+    { "id": 107, "name": "MCDONALD'S", "category": "food", "floor": "ground", "image":"brand/mcdonalds.jpg" },
+    { "id": 108, "name": "SAMSUNG", "category": "tech", "floor": "ground", "image":"brand/samsung.png" },
+
+    { "id": 201, "name": "SONY", "category": "tech", "floor": "1st", "image":"brand/sony.png" },
+    { "id": 202, "name": "STARBUCKS", "category": "food", "floor": "1st", "image":"brand/starbucks.png" },
+    { "id": 203, "name": "RAYMOND", "category": "fashion", "floor": "1st", "image":"brand/raymond.png" },
+    { "id": 204, "name": "VADILAL", "category": "food", "floor": "1st", "image":"brand/vadilal.jpg" },
+    { "id": 205, "name": "MOCHI", "category": "fashion", "floor": "1st", "image":"brand/mochi.png" },
+    { "id": 206, "name": "TANISHQ", "category": "fashion", "floor": "1st", "image":"brand/Tanishq.jpg" },
+    { "id": 207, "name": "RELIANCE", "category": "tech", "floor": "1st", "image":"brand/reli.jpg" },
+    
+    { "id": 208, "name": "KALYAN", "category": "fashion", "floor": "1st", "image":"brand/kalyan.jpg" },
+
+    { "id": 301, "name": "Digjam", "category": "fashion", "floor": "2nd", "image":"brand/digjam.jpg" },
+    { "id": 302, "name": "SHOP FOR SALE", "category": "Sail", "floor": "2nd", "image":"brand/ShopforSail.png" },
+    { "id": 303, "name": "ASUS", "category": "tech", "floor": "2nd", "image":"brand/asus.png" },
+    { "id": 304, "name": "Louis Philippe", "category": "fashion", "floor": "2nd", "image":"brand/LouisPh.png" },
+    { "id": 305, "name": "Gucci", "category": "fashion", "floor": "2nd", "image":"brand/Gucci.png" },
+    { "id": 306, "name": "Rolex", "category": "fashion", "floor": "2nd", "image":"brand/rolex.png" },
+    { "id": 307, "name": "HP", "category": "tech", "floor": "2nd", "image":"brand/hp.png" },
+    { "id": 308, "name": "Titan", "category": "fashion", "floor": "2nd", "image":"brand/titan.png"}
+  ]
+}

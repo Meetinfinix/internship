@@ -1,0 +1,26 @@
+{
+  "name": "mall-mart",
+  "version": "1.0.0",
+  "description": "Mall Directory Desktop App",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "author": "MEET,PURAB,YUG",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^40.0.0",
+    "electron-builder": "^24.0.0"
+  },
+  "build": {
+    "appId": "com.fullproj.app",
+    "productName": "MALL MART",
+    "files": [
+      "**/*"
+    ],
+    "win": {
+      "target": "nsis"
+    }
+  }
+}
